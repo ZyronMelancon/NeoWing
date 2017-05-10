@@ -7,7 +7,7 @@ public class ShipControl : MonoBehaviour {
     public float m_BaseSpeed = 1.0f;
     public float m_BoostMultiplier = 1.5f;
     public float m_SlowMultiplier = 0.5f;
-    public float m_TurnTilt = 100f;
+    public float m_TurnTilt = 50f;
     public float m_TiltSpeed = 1f;
     public GameObject m_ShotSmall;
     public Transform m_ShootPos;
@@ -24,7 +24,7 @@ public class ShipControl : MonoBehaviour {
     public ParticleSystem m_Explosion;
     public AudioSource m_ExplosionSFX;
 
-    private bool shooting = false;
+    //private bool shooting = false;
     private bool boosting = false;
     private bool timething = false;
 
@@ -43,14 +43,11 @@ public class ShipControl : MonoBehaviour {
 	void Update ()
     {
         Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        StartCoroutine(Shoot());
 
         grabber();
         
         shipRotate(Input.GetAxisRaw("Horizontal"));
-
         
-
         if (m_Health <= 0)
         {
             m_Health = 0;
@@ -62,18 +59,6 @@ public class ShipControl : MonoBehaviour {
         {
             m_Fuel = 0;
             gameover = true;
-        }
-    }
-
-    IEnumerator Shoot()
-    {
-        if (Input.GetAxisRaw("Fire1") == 1 && shooting == false)
-        {
-            shooting = true;
-            Instantiate(m_ShotSmall, m_ShootPos.position, m_ShootPos.rotation);
-            m_ShotsFired++;
-            yield return new WaitForSeconds(0.1f);
-            shooting = false;
         }
     }
 

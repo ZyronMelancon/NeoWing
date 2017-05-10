@@ -73,7 +73,7 @@ public class EnemyControl : MonoBehaviour {
         if (other.gameObject.tag == "PlayerShot")
         {
             Destroy(other.gameObject);
-            m_Health -= 5;
+            m_Health -= other.GetComponent<ShotControl>().m_ShotDamage;
             HUD.hits++;
         }
     }
